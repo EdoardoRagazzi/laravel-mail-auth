@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Tag;
 use App\Category;
@@ -50,7 +51,9 @@ class PostController extends Controller
     // Validation Data
     $request->validate([
         'title'=> 'required|max:255',
-        'content'=> 'required'
+        'content'=> 'required',
+        'category_id'=> 'nullable|exists:categories,id',
+        'image' => 'nullable|image'
     ]);
 
         // Get the data
@@ -70,6 +73,10 @@ class PostController extends Controller
         // Create slug of title because there isn't on page Admin.Posts.Create 
         $newPost->slug = $slug;
         // Fill the data on newPost instance
+        if(array_key_exists('image',$data)){
+            $cover_path = Storage::put('covers', $data['image']);
+            $data['cover'] = $cover_path;
+        }
         $newPost->fill($data);
         // Must save the data
         $newPost->save();

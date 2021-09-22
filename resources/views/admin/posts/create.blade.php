@@ -12,7 +12,7 @@
     </div>
 @endif
    
-    <form action="{{ route('admin.posts.store')}}" method="post">
+    <form action="{{ route('admin.posts.store')}}" method="post" enctype="multipart/form-data">
         @csrf
       
 
@@ -44,6 +44,13 @@
                 @endif>{{old('name',$category->name)}}</option>
             @endforeach
         </select>
+        <div class="mb-3">
+            <label for="img" class="form-label">Imagine</label>
+            <input type="file" name="image" class="form-control-file
+            @error('image')
+            is-invalid
+            @enderror">
+        </div>
       <div class="mb-3">
         <label for="descrizione" class="form-label">Descrizione</label>
         <textarea class="form-control" type="text" name="content" cols="30" rows="10"  id="descrizione" >{{old('content')}}</textarea>

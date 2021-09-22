@@ -10,7 +10,8 @@ class Post extends Model
         'title',
         'slug',
         'content',
-        'category_id'
+        'category_id',
+        'cover'
     ];
         //  Acuni post possono appartenere a una solo categoria per questo mettiamo la tabella al singolare, in questo caso Category
 
